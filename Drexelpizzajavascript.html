@@ -1,0 +1,310 @@
+<!--
+================================================
+Project Name: 	JavaScript for drexel pizza
+Date: 			11/10/2015
+Programmer: 	Vishesh Thakur
+Purpose: 		Maintenance on Pizza Order Form
+				by using JavaScript.
+				Displaying the order in a new Window
+================================================
+-->
+<!--DOCTYPE html-->
+<html>
+	<head>
+		<title>JavaScript for drexel pizza</title>
+	<script>
+		/*VT - This function is triggered when user clicks the
+		'clear entries' button which wipes off all the details entered*/
+		function doClear()
+		{
+			document.PizzaForm.name.value="";
+			document.PizzaForm.address.value="";
+			document.PizzaForm.city.value="";
+			document.PizzaForm.zip.value="";
+			document.PizzaForm.phone.value="";
+			document.PizzaForm.email.value="";
+			
+			document.PizzaForm.sizes[0].checked = false;
+			document.PizzaForm.sizes[1].checked = false;
+			document.PizzaForm.sizes[2].checked = false;
+			document.PizzaForm.sizes[3].checked = false;
+			
+			document.PizzaForm.toppings[0].checked = false;
+			document.PizzaForm.toppings[1].checked = false;
+			document.PizzaForm.toppings[2].checked = false;
+			document.PizzaForm.toppings[3].checked = false;
+			document.PizzaForm.toppings[4].checked = false;
+			document.PizzaForm.toppings[5].checked = false;
+			document.PizzaForm.toppings[6].checked = false;
+			document.PizzaForm.toppings[7].checked = false;
+			
+			document.PizzaForm.states.options[0].selected = true;
+			return;
+		}
+		/*VT - This function is triggered when user clicks the 'submit order' button.
+		The order is validated based upon the text field input, radio button and check boxes*/
+		function doSubmit()
+		{
+			if(validateName() == false)
+			{
+				alert("Name is missing!");
+				return;
+			}
+			if(validateAddress() == false)
+			{
+				alert("Address field is missing");
+				return;
+			}
+			if(validateCity() == false)
+			{
+				alert("Mention the City please");
+				return;
+			}
+			
+			if(validateZip() == false)
+			{
+				alert("Enter a valid 5-digit Zip Code please");
+				return;
+			}
+			if(validatePhone() == false)
+			{
+				alert("Enter a valid 10 digit phone number");
+				return;
+			}
+			if(validateEmail() == false)
+			{
+				alert("Provide Email address please!");
+				return;
+			}
+			
+			if(validateRadio() == true)
+			{
+				
+				if(document.PizzaForm.sizes[0].checked)
+				button = document.getElementById("small").value;
+				
+				if(document.PizzaForm.sizes[1].checked)
+				button = document.getElementById("medium").value;
+				
+				if(document.PizzaForm.sizes[2].checked)
+				button = document.getElementById("large").value;
+				
+				if(document.PizzaForm.sizes[3].checked)
+				button = document.getElementById("jumbo").value;
+			}
+			
+			if(validateRadio() == false)
+			{
+			 	alert("Please select a size for your pizza");
+				//return;
+			}
+			
+			
+			if(validateCheck() == false)
+			{
+				alert("Toppings is not selected");
+				return;
+			}
+			
+			/*VT - Variables are created to store the user's input*/
+			var name1 = document.PizzaForm.name.value;
+			var name = name1.charAt(0).toUpperCase() + name1.substring(1).toLowerCase();
+			
+			var address = document.PizzaForm.address.value;
+			
+			var city1 = document.PizzaForm.city.value;
+			/* VT - Changing the 1st Character to Capital and the remaining to lowercase*/
+			var city = city1.charAt(0).toUpperCase() + city1.substring(1).toLowerCase();
+			
+			var zip = document.PizzaForm.zip.value;
+			var phone = document.PizzaForm.phone.value;
+			var email = document.PizzaForm.email.value;	
+			
+			/*VT - Based upon the toppings selected, they will be listed on the alert box
+			in the order receipt*/
+			var toppings = "";
+			for(i=0;i<document.PizzaForm.toppings.length;i++){
+				if(document.PizzaForm.toppings[i].checked)
+				toppings += (i==0?"":",")+document.PizzaForm.toppings[i].value;
+			
+			/*VT -  Selecting the value of drop down menu*/			
+			var St = document.getElementById("statename");
+			var state = St.options[St.selectedIndex].text;
+				
+			}
+			
+			/* VT - If all the necessary details are entered then an
+			Order Details are displayed in a new window*/
+			
+			var newWindow
+			newWindow = window.open("","Order receipt: ","status,height=500,width=500")
+			newWindow.document.write("<p>" + newWindow.name + "</p>")
+			newWindow.document.write("Name: "+ name + "<br />");
+			newWindow.document.write("Address: "+ address + "<br />");
+			newWindow.document.write("City: "+ city + "<br />");
+			newWindow.document.write("State: "+ state + "<br />");
+			newWindow.document.write("Zip: "+ zip + "<br />");
+			newWindow.document.write("Phone: "+ phone + "<br />");
+			newWindow.document.write("Email: "+ email + "<br />");
+			newWindow.document.write("Size: "+ button + "<br />");
+			newWindow.document.write("Toppings: "+ toppings + "<br />");
+			newWindow.document.write("<br />" + "Your Pizza is out for delivery!");
+			newWindow.focus();
+		
+		}
+		/* VT - These function facilitates data validation,
+		if user does not provide any specific input they returns false */
+		function validateName()
+		{
+			var name = document.PizzaForm.name.value;
+			if(name.length == 0) return false;
+		}
+		function validateAddress()
+		{
+			var address = document.PizzaForm.address.value;
+			if(address.length == 0) return false;
+		}
+		function validateCity()
+		{
+			var city = document.PizzaForm.city.value;
+			if(city.length == 0) return false;
+		}
+		
+		// VT - Limiting the ZIP code to 5 digits if entered.
+		function validateZip()
+		{
+			var zip = document.PizzaForm.zip.value;
+			if(zip.length == 0) return false;
+			else
+			{
+				if(isNaN( document.PizzaForm.zip.value ) ||
+				document.PizzaForm.zip.value.length != 5 )
+			{
+				alert("Please provide your valid 5 digit Zip code.");
+				document.PizzaForm.zip.focus() ;
+				return false;
+			}
+			}
+		}
+		
+		// VT - Restricting the phone number to 10 digits.
+		function validatePhone()
+		{
+			var phone = document.PizzaForm.phone.value;
+			if(phone.length == 0) return false;
+			else
+			{
+				if (!/^\d{10}$/.test(document.PizzaForm.phone.value)) {
+				//alert("Please provide a valid phone number.");
+				document.PizzaForm.phone.focus();
+				return false;
+				}
+			}
+		}
+		
+		// VT - Validating Email to check if it has '@' and '.' in it.
+		function validateEmail()
+		{
+			var email = document.PizzaForm.email.value;
+			if(email.length == 0) return false;
+			else
+			{
+				var email = document.getElementById('email');
+				var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+				if (!filter.test(document.PizzaForm.email.value)) {
+				//alert('Invalid email address');
+				document.PizzaForm.email.focus();
+				return false;
+				}
+			
+			}			
+		}
+		
+		/* VT - This function facilitates data validation in terms
+		of a particular radio button being clicked or not, if user
+		does not provide any specific input it returns false */
+		function validateRadio()
+		{		
+			if(document.PizzaForm.sizes[0].checked) return true;
+			if(document.PizzaForm.sizes[1].checked) return true;
+			if(document.PizzaForm.sizes[2].checked) return true;
+			if(document.PizzaForm.sizes[3].checked) return true;
+			return false;
+		}
+		
+		// VT- Validating the check Boxes
+		function validateCheck()
+		{
+			for(i=0;i<document.PizzaForm.toppings.length;i++)
+				if(document.PizzaForm.toppings[i].checked)
+					return true;
+				alert("Please pick a topping of your choice.");
+					return false;
+		}
+		
+	</script>
+	
+	</head>
+	
+	<body>
+	<div style="width:500px;margin:0 auto">
+	<!-- VT - Creating a form with name PizzaForm-->
+	<form name="PizzaForm">
+	<h1>DREXEL Pizza Parlour</h1>
+	<p>
+		<h4>Step 1: Enter your personal information:</h4>
+		<font face="Courier new">
+		<!-- VT - A text input field form-->
+			Name:&nbsp;&nbsp;&nbsp;&nbsp;<input name="name" size="50" type="text"><br />
+			<!-- VT - '&nbsp' create space to improve readability-->
+			Address:&nbsp;<input name="address" size="50" maxlength="25" type="text"><br />
+			City:&nbsp;&nbsp;&nbsp;&nbsp;<input name="city" size="15" type="text">
+			State:
+			<select id="statename" name = "states">
+				<option value="PA" >PA</option> 
+				<option value="NJ" >NJ</option> 
+				<option value="NY" >NY</option>
+				<option value="DE" >DE</option> 
+			</select>
+			Zip:<input name="zip" size="6" type="text" onblur="validateZip()"><br />
+			Phone:&nbsp;&nbsp;&nbsp;<input name="phone" size="50"  type="text"><br />
+			Email:&nbsp;&nbsp;&nbsp;<input name="email" size="30" type="text"><br />
+		</font>	
+	</p>
+	
+	<p>
+		<h4>Step 2: Select the size of the pizza you want:</h4>
+		<font face="Courier new">
+		<!--VT - A radio button form enables to select single option -->
+			<input name="sizes" id="small" value="Small" type="radio">Small
+			<input name="sizes" id="medium" value="Medium" type="radio">Medium
+			<input name="sizes" id="large" value="Large" type="radio">Large
+			<input name="sizes" id="jumbo" value="Jumbo" type="radio">Jumbo<br />
+			
+		</font>
+	</p>
+	
+	<p>
+		<h4>Step 3: Select the pizza toppings you want:</h4>
+		<font face="Courier new">
+		<!--VT - A check box form which allows users to select multiple options-->
+			<input name="toppings" id="pepperoni" value="Pepperoni" type="checkbox">Pepperoni
+			<input name="toppings" id="canadian bacon" value="Canadian bacon" type="checkbox">Canadian Bacon
+			<input name="toppings" id="sausage" value="Sausage" type="checkbox">Sausage<br />
+			<input name="toppings" id="mushrooms"value="Mushrooms" type="checkbox">Mushrooms
+			<input name="toppings" id="pineapple" value="pineapple" type="checkbox">Pineapple
+			<input name="toppings" id="black olives" value="Black Olives" type="checkbox">Black Olives<br />
+			<input name="toppings" id="green pep" value="Green Peppers" type="checkbox">Green Peppers
+			<input name="toppings" id="extra cheese" value="Extra Cheese" type="checkbox">Extra Cheese
+
+		</font>
+	</p>
+	<!--VT - Submit order button is triggered when user clicks on it-->
+	<input type="button" value="Submit Order" onClick="doSubmit()">
+	<!--VT - Clear Entries button clears the entire details if it is clicked by user-->
+	<input type="button" value="Clear Entries" onClick="doClear()">
+	</form>
+	</div>
+	</body>
+</html>

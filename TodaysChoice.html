@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>HTML and JavaScript</title>
+
+<script>
+var imgArray = new Array(4);
+var index= 0;
+
+function cycle()
+{
+	document.banner.src = imgArray[index].src;
+	index++;
+	if(index > 3)
+	{
+		index = 0;
+	}
+	setTimeout("cycle()",1000);
+	return;
+}
+
+function startup()
+{
+	imgArray[0] = new Image;
+	imgArray[0].src = "Pizza1.jpg";
+	imgArray[1] = new Image;
+	imgArray[1].src = "Pizza2.jpg";
+	imgArray[2] = new Image;
+	imgArray[2].src = "Pizza3.jpg";
+	imgArray[3] = new Image;
+	imgArray[3].src= "Pizza4.jpg";
+	cycle();
+	return;
+}
+</script>
+</head>
+
+<body onLoad="startup()">
+<h2 align="center">Today's Choice!</h2>
+	<div align = "center">
+		<img name="banner" src="Pizza1.jpg">
+	</div>
+</body>
+</html>
