@@ -250,7 +250,7 @@ Purpose: 		Maintenance on Pizza Order Form
 	<body>
 	<div style="width:500px;margin:0 auto">
 	<!-- VT - Creating a form with name PizzaForm-->
-	<form name="PizzaForm">
+	<form name="PizzaForm" action="order.php" method="post">
 	<h1>DREXEL Pizza Parlour</h1>
 	<p>
 		<h4>Step 1: Enter your personal information:</h4>
@@ -289,19 +289,19 @@ Purpose: 		Maintenance on Pizza Order Form
 		<h4>Step 3: Select the pizza toppings you want:</h4>
 		<font face="Courier new">
 		<!--VT - A check box form which allows users to select multiple options-->
-			<input name="toppings" id="pepperoni" value="Pepperoni" type="checkbox">Pepperoni
-			<input name="toppings" id="canadian bacon" value="Canadian bacon" type="checkbox">Canadian Bacon
-			<input name="toppings" id="sausage" value="Sausage" type="checkbox">Sausage<br />
-			<input name="toppings" id="mushrooms"value="Mushrooms" type="checkbox">Mushrooms
-			<input name="toppings" id="pineapple" value="pineapple" type="checkbox">Pineapple
-			<input name="toppings" id="black olives" value="Black Olives" type="checkbox">Black Olives<br />
-			<input name="toppings" id="green pep" value="Green Peppers" type="checkbox">Green Peppers
-			<input name="toppings" id="extra cheese" value="Extra Cheese" type="checkbox">Extra Cheese
+			<input name="toppings[]" id="pepperoni" value="101" type="checkbox">Pepperoni
+			<input name="toppings[]" id="canadian bacon" value="102" type="checkbox">Canadian Bacon
+			<input name="toppings[]" id="sausage" value="103" type="checkbox">Sausage<br />
+			<input name="toppings[]" id="mushrooms"value="104" type="checkbox">Mushrooms
+			<input name="toppings[]" id="pineapple" value="105" type="checkbox">Pineapple
+			<input name="toppings[]" id="black olives" value="106" type="checkbox">Black Olives<br />
+			<input name="toppings[]" id="green pep" value="107" type="checkbox">Green Peppers
+			<input name="toppings[]" id="extra cheese" value="108" type="checkbox">Extra Cheese
 
 		</font>
 	</p>
 	<!--VT - Submit order button is triggered when user clicks on it-->
-	<input type="button" value="Submit Order" onClick="doSubmit()">
+	<input type="submit" value="Submit Order">
 	<!--VT - Clear Entries button clears the entire details if it is clicked by user-->
 	<input type="button" value="Clear Entries" onClick="doClear()">
 	</form>
