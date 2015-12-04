@@ -65,7 +65,7 @@
 			 
 			 if(mysqli_query($link, $sql)){
 
-				echo "Records added successfully.";
+				//echo "Records added successfully.";
 
 			} else{
 
