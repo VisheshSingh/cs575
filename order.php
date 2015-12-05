@@ -1,3 +1,11 @@
+ <!--
+ ================================================
+ Project Name: 	OrderPHP
+ Date: 			11/29/2015
+ Programmer: 	Vishesh Thakur
+ Purpose: 		Linking the order entries to cs575 database
+ ================================================
+ -->
  <?php
 
     /* Attempt MySQL server connection. Assuming you are running MySQL
@@ -57,6 +65,7 @@
         echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 
     }
+
 	$orderID = mysqli_insert_id($link);
 	//echo "The id for record is: " . mysqli_insert_id($link);<br />
 
